@@ -9,7 +9,8 @@
         "7728521532": {
             "name": "Elite Rider",
             "username": "eliteriderexpress",
-            "id": 7728521532
+            "id": 7728521532,
+            "checked_in": false
         }
     }
 }

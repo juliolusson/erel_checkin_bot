@@ -403,15 +403,16 @@ async def save_new_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Callback para el botón de Roster
 async def roster_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Enviar mensaje inicial para pedir la lista de nombres en el formato solicitado
+    await update.callback_query.answer()
+    context.user_data["waiting_for_roster"] = True
     await update.callback_query.message.edit_text(
-        "📋 *Roster Setup:*\n\n"
-        "Por favor, envíame la lista de nombres (Nombre y Apellido) en líneas separadas.\n"
+        "Por favor, envíame la lista de nombres (Nombre y Apellido) en líneas separadas.\n\n"
         "*Ejemplo:*\n"
         "`Julio Lusson`\n"
         "`Elite Rider`\n"
-        "_Nota: Asegúrate de escribirlos correctamente para que puedan ser asignados._"
-        , parse_mode='Markdown'
+        "_Nota: Asegúrate de escribirlos correctamente para que puedan ser asignados._",
+        parse_mode="Markdown"
     )
-    # Guardar estado para esperar los nombres
-    context.user_data['waiting_for_roster'] = True
+    # Activamos una bandera para que el siguiente mensaje de texto
+    # se maneje en la nueva lógica (start_checkin).
+    context.user_data["waiting_for_roster"] = True
